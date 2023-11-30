@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "db_migrate": "atlas schema apply --env turso --to file://keepup.hcl",
     "tauri": "tauri"
   },
   "dependencies": {
