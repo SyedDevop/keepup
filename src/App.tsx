@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
+import { createClient } from "@libsql/client/web";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+
+  useEffect(() => {
+    // Synchronize the embedded replica with the remote database
+    (async () => {
+      const envValue: string = await invoke("get_env");
+      const env = JSON.parse(envValue);
+      const client = createClient({
+        url: env["sync_url"],
+        syncUrl: "file:./test.db",
+        authToken: env["auth_token"],
+      });
+      await client.sync();
+
+      console.log(await client.execute("select * from keepup"));
+    })();
+  }, []);
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -46,6 +63,7 @@ function App() {
       </form>
 
       <p>{greetMsg}</p>
+      <p>Hello from frount</p>
     </div>
   );
 }
