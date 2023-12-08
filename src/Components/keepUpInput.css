@@ -1,0 +1,64 @@
+/* main body of the todo section */
+.task-body {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  height: 99svh;
+  letter-spacing: 2px;
+}
+
+/*The Tasks*/
+.task-view {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.task-text {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+}
+
+.task-text svg {
+  width: 16px;
+  height: 16px;
+}
+
+.task-text p {
+  font-size: 0.9rem;
+  max-width: 290px;
+  word-wrap: break-word;
+  font-weight: bold;
+}
+
+.task-text .selected {
+  color: #565f89;
+  text-decoration: line-through;
+}
+
+/*The Task input*/
+.task-input {
+  display: flex;
+  border-top: 1px solid #27a1b9;
+}
+.task-input input {
+  width: 100%;
+  background-color: transparent;
+  color: #c0caf5;
+  border: none;
+  font-size: 1rem;
+  padding: 6px 5px;
+  letter-spacing: 3px;
+  outline: none;
+}
+.task-clear {
+  background-color: transparent;
+  border: none;
+  display: grid;
+  place-content: center;
+}
+
+.task-clear img {
+  filter: invert(90%) sepia(95%) saturate(2476%) hue-rotate(91deg)
+    brightness(118%) contrast(139%);
+}

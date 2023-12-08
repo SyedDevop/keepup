@@ -12,4 +12,19 @@
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+
+  --bg: #1a1b26;
+  --fg: #ccd1e3;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.container {
+  padding-inline: 10px;
+}
+
+.icon-btn {
+  display: grid;
+  background-color: transparent;
+  padding: 0;
 }
