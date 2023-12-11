@@ -5,7 +5,7 @@ type Props = {
   task: string;
 };
 
-const KeepUpText = ({ task }: Props) => {
+function KeepUpText({ task }: Props) {
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const toggleSelected = () => {
@@ -27,6 +27,6 @@ const KeepUpText = ({ task }: Props) => {
       <p className={isSelected ? "selected" : ""}>{task}</p>
     </div>
   );
-};
+}
 
 export default KeepUpText;
