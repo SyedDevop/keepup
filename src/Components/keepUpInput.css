@@ -24,6 +24,10 @@
   height: 16px;
 }
 
+.task-text_action:hover {
+  cursor: pointer;
+}
+
 .task-text p {
   font-size: 0.9rem;
   max-width: 290px;
