@@ -1,0 +1,8 @@
+.icon-btn {
+  display: grid;
+  background-color: transparent;
+  padding: 0;
+}
+.icon-btn:hover {
+  cursor: pointer;
+}

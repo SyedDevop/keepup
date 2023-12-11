@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CheckBox from "../assets/check_box.svg?react";
 import CheckBoxSelected from "../assets/check_box_selected.svg?react";
+import KPIconButton from "./Ui/KPIconButton";
 type Props = {
   task: string;
 };
@@ -16,13 +17,13 @@ function KeepUpText({ task }: Props) {
   return (
     <div className="task-text">
       {isSelected ? (
-        <button type="button" onClick={toggleSelected} className="icon-btn">
+        <KPIconButton onClick={toggleSelected}>
           <CheckBoxSelected style={{ fill: "#1abc9c" }} />
-        </button>
+        </KPIconButton>
       ) : (
-        <button type="button" onClick={toggleSelected} className="icon-btn">
+        <KPIconButton onClick={toggleSelected}>
           <CheckBox style={{ fill: "#565f89" }} />
-        </button>
+        </KPIconButton>
       )}
       <p className={isSelected ? "selected" : ""}>{task}</p>
     </div>

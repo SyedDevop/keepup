@@ -22,9 +22,3 @@
 .container {
   padding-inline: 10px;
 }
-
-.icon-btn {
-  display: grid;
-  background-color: transparent;
-  padding: 0;
-}

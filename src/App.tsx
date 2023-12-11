@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import KeepUpInput from "./Components/keepUpInput";
-import "./App.css";
 import KeepUpText from "./Components/keepUpText";
+
+import "./App.css";
+import "./Components/Ui/button.css";
 
 function App() {
   const [tasklist, setTasklist] = useState<string[]>([]);
