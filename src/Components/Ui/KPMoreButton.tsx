@@ -19,4 +19,10 @@ function KPMoreButton(props: Props) {
   );
 }
 
+KPMoreButton.defaultProps = {
+  mainClass: "",
+  iconClass: "",
+  actionClass: "",
+};
+
 export default KPMoreButton;

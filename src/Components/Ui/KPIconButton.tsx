@@ -8,4 +8,8 @@ function KPIconButton(props: Props) {
   );
 }
 
+KPIconButton.defaultProps = {
+  className: "",
+};
+
 export default KPIconButton;
