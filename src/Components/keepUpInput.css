@@ -19,14 +19,14 @@
   margin: 10px;
 }
 
-.task-text svg {
+.task-text > button svg {
   width: 16px;
   height: 16px;
 }
 
-.task-text_action:hover {
-  cursor: pointer;
-}
+/* .task-text_action:hover { */
+/*   cursor: pointer; */
+/* } */
 
 .task-text p {
   font-size: 0.9rem;
@@ -35,7 +35,7 @@
   font-weight: bold;
 }
 
-.task-text .selected {
+.pptask-text .selected {
   color: #565f89;
   text-decoration: line-through;
 }

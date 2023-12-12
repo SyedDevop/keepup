@@ -1,7 +1,11 @@
 import { useState } from "react";
-import CheckBox from "../assets/check_box.svg?react";
-import CheckBoxSelected from "../assets/check_box_selected.svg?react";
+
 import KPIconButton from "./Ui/KPIconButton";
+import KPMoreButton from "./Ui/KPMoreButton";
+import CheckBox from "@svg/check_box.svg?react";
+import CheckBoxSelected from "@svg/check_box_selected.svg?react";
+import EditIcon from "@svg/edit.svg?react";
+import DeleteIcon from "@svg/contract_delete.svg?react";
 
 type Props = {
   task: string;
@@ -12,7 +16,6 @@ function KeepUpText({ task }: Props) {
 
   const toggleSelected = () => {
     setIsSelected((e) => !e);
-    console.log("Clied");
   };
 
   return (
@@ -29,12 +32,20 @@ function KeepUpText({ task }: Props) {
 
       <div className="task-text_action">
         <p className={isSelected ? "selected" : ""}>{task}</p>
-        <div className="task-text_action-more ">
-          <ul>
-            <li>Edit</li>
-            <li>Delete</li>
-          </ul>
-        </div>
+        <KPMoreButton>
+          <button type="button" className="char-sp">
+            <EditIcon fill="#1abc9c" />
+            Edit
+          </button>
+          <button type="button" className="char-sp">
+            <DeleteIcon fill="#ff007c" />
+            Delete
+          </button>
+          <button type="button" className="char-sp">
+            <DeleteIcon fill="#ff007c" />
+            Delete is it name
+          </button>
+        </KPMoreButton>
       </div>
     </div>
   );

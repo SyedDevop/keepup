@@ -6,3 +6,53 @@
 .icon-btn:hover {
   cursor: pointer;
 }
+
+.more {
+  /* display: none; */
+  --action-display: none;
+  /* background-color: linear-gradient( */
+  /*   90deg, */
+  /*   rgba(216, 214, 237, 1) 0%, */
+  /*   rgba(26, 27, 38, 1) 100% */
+  /* ); */
+  position: relative;
+  background-color: var(--bg);
+}
+
+.more:hover {
+  --action-display: grid;
+}
+
+.more-icon {
+  background-color: #292e42;
+  width: max-content;
+  border-radius: 50%;
+  fill: var(--fg);
+  padding: 2px;
+}
+.more-icon:hover {
+  cursor: pointer;
+}
+
+.more-action {
+  display: var(--action-display);
+  background-color: var(--bg);
+  padding: 10px 20px;
+  box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.7);
+  transition: background 0.3s ease;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 15px;
+  gap: 10px;
+  position: fixed;
+  z-index: 100;
+}
+
+.more-action > * {
+  display: flex;
+  gap: 5px;
+}
+
+.more-action > *:hover {
+  cursor: pointer;
+}

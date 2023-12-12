@@ -15,10 +15,15 @@
 
   --bg: #1a1b26;
   --fg: #ccd1e3;
+  --green: #1abc9c;
+  --megenta: #ff007c;
   background-color: var(--bg);
   color: var(--fg);
 }
 
 .container {
   padding-inline: 10px;
+}
+.char-sp {
+  letter-spacing: 2px;
 }
