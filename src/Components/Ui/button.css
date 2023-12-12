@@ -38,7 +38,7 @@
   display: var(--action-display);
   background-color: var(--bg);
   padding: 10px 20px;
-  box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 12px 28px 0px rgba(0, 40, 75, 0.7);
   transition: background 0.3s ease;
   text-decoration: none;
   font-weight: bold;
@@ -46,6 +46,7 @@
   gap: 10px;
   position: fixed;
   z-index: 100;
+  right: 0;
 }
 
 .more-action > * {

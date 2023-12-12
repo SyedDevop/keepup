@@ -32,20 +32,18 @@ function KeepUpText({ task }: Props) {
 
       <div className="task-text_action">
         <p className={isSelected ? "selected" : ""}>{task}</p>
-        <KPMoreButton>
-          <button type="button" className="char-sp">
-            <EditIcon fill="#1abc9c" />
-            Edit
-          </button>
-          <button type="button" className="char-sp">
-            <DeleteIcon fill="#ff007c" />
-            Delete
-          </button>
-          <button type="button" className="char-sp">
-            <DeleteIcon fill="#ff007c" />
-            Delete is it name
-          </button>
-        </KPMoreButton>
+        <div className="task-text_action-more">
+          <KPMoreButton>
+            <button type="button" className="char-sp">
+              <EditIcon fill="#1abc9c" />
+              Edit
+            </button>
+            <button type="button" className="char-sp">
+              <DeleteIcon fill="#ff007c" />
+              Delete
+            </button>
+          </KPMoreButton>
+        </div>
       </div>
     </div>
   );
