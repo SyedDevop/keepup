@@ -8,11 +8,13 @@ import EditIcon from "@svg/edit.svg?react";
 import DeleteIcon from "@svg/contract_delete.svg?react";
 
 type Props = {
-  task: string;
+  task: TaskType;
 };
 
+// TODO: add toggleSelected to Keepup store.
+
 function KeepUpText({ task }: Props) {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<boolean>(task.taskStatus);
 
   const toggleSelected = () => {
     setIsSelected((e) => !e);
@@ -31,7 +33,7 @@ function KeepUpText({ task }: Props) {
       )}
 
       <div className="task-text_action">
-        <p className={isSelected ? "selected" : ""}>{task}</p>
+        <p className={isSelected ? "selected" : ""}>{task.task}</p>
         <div className="task-text_action-more">
           <KPMoreButton>
             <button type="button" className="char-sp">

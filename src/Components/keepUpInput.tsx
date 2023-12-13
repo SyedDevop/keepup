@@ -1,11 +1,20 @@
 import { useState } from "react";
 import "./keepUpInput.css";
+import { useKeepUpStore, createTask } from "@src/store/useKeepup";
 
 type Props = {
-  onSubmit: (task: string) => void;
+  onSubmit?: (task: TaskType) => void;
 };
 function KeepUpInput({ onSubmit }: Props) {
   const [addTask, setAddTask] = useState("");
+  const add = useKeepUpStore((t) => t.add);
+
+  const handleSubmit = () => {
+    add(addTask);
+    onSubmit && onSubmit(createTask(addTask));
+    setAddTask("");
+  };
+
   return (
     <div className="task-input">
       <input
@@ -17,8 +26,7 @@ function KeepUpInput({ onSubmit }: Props) {
         }}
         onKeyDown={(e) => {
           if (e.code === "Enter") {
-            onSubmit(addTask);
-            setAddTask("");
+            handleSubmit();
           }
         }}
       />

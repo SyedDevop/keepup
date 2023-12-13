@@ -6,13 +6,10 @@ import KeepUpText from "./Components/keepUpText";
 
 import "./App.css";
 import "./Components/Ui/button.css";
+import useKeepUpStore from "./store/useKeepup";
 
 function App() {
-  const [tasklist, setTasklist] = useState<string[]>([]);
-
-  function addTaskToList(task: string) {
-    setTasklist((e) => [...e, task]);
-  }
+  const tasklist = useKeepUpStore((task) => task.keepup);
 
   return (
     <div className=" ">
@@ -22,7 +19,7 @@ function App() {
             <KeepUpText key={i} task={v} />
           ))}
         </div>
-        <KeepUpInput onSubmit={addTaskToList} />
+        <KeepUpInput />
       </main>
     </div>
   );
