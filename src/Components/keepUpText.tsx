@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 
 import KPIconButton from "./Ui/KPIconButton";
 import KPMoreButton from "./Ui/KPMoreButton";
@@ -6,23 +6,21 @@ import CheckBox from "@svg/check_box.svg?react";
 import CheckBoxSelected from "@svg/check_box_selected.svg?react";
 import EditIcon from "@svg/edit.svg?react";
 import DeleteIcon from "@svg/contract_delete.svg?react";
+import useKeepUpStore from "@src/store/useKeepup";
 
 type Props = {
   task: TaskType;
 };
 
-// TODO: add toggleSelected to Keepup store.
-
 function KeepUpText({ task }: Props) {
-  const [isSelected, setIsSelected] = useState<boolean>(task.taskStatus);
-
+  const toggleTask = useKeepUpStore((state) => state.toggleTask);
   const toggleSelected = () => {
-    setIsSelected((e) => !e);
+    toggleTask(task.uid);
   };
 
   return (
     <div className="task-text">
-      {isSelected ? (
+      {task.taskStatus ? (
         <KPIconButton onClick={toggleSelected}>
           <CheckBoxSelected style={{ fill: "#1abc9c" }} />
         </KPIconButton>
@@ -33,7 +31,7 @@ function KeepUpText({ task }: Props) {
       )}
 
       <div className="task-text_action">
-        <p className={isSelected ? "selected" : ""}>{task.task}</p>
+        <p className={task.taskStatus ? "selected" : ""}>{task.task}</p>
         <div className="task-text_action-more">
           <KPMoreButton>
             <button type="button" className="char-sp">
@@ -51,4 +49,4 @@ function KeepUpText({ task }: Props) {
   );
 }
 
-export default KeepUpText;
+export default React.memo(KeepUpText);

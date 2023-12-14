@@ -13,6 +13,7 @@
   "dependencies": {
     "@libsql/client": "^0.4.0-pre.5",
     "@tauri-apps/api": "^1.5.1",
+    "immer": "^10.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.4.7"

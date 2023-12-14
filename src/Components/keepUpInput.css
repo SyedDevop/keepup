@@ -24,6 +24,9 @@
   height: 16px;
 }
 
+.task-text > button svg:hover {
+  cursor: pointer;
+}
 .task-text_action {
   --display-action-more: none;
   position: relative;
@@ -58,7 +61,7 @@
   font-weight: bold;
 }
 
-.pptask-text .selected {
+.task-text .selected {
   color: #565f89;
   text-decoration: line-through;
 }
