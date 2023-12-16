@@ -5,6 +5,7 @@ This template should help get you started developing with Tauri, React and Types
 ## Add .env file for turso sqllite database
 
 Link for the turso Remote sync-example : [Remote Sync](https://github.com/tursodatabase/embedded-replica-examples/tree/main/remote-sync)
+[Example for tauri,turso note taking app](https://github.com/turso-extended/app-turso-notes)
 
 ```shell
 echo "VITE_DB_URL=file:localdb" >> .env
