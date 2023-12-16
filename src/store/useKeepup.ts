@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
+import { createClient } from "@libsql/client";
 
 interface keepUpState {
   keepup: TaskType[];
@@ -9,6 +10,21 @@ interface keepUpState {
   edit: (uid: number, task: string) => void;
   toggleTask: (uid: number) => void;
 }
+
+const callDb = async () => {
+  // const url = import.meta.env["DB_URL"];
+  const syncUrl = import.meta.env["VITE_SYNC_URL"];
+  const authToken = import.meta.env["VITE_SYNC_URL"];
+  const db = createClient({
+    url: "http://localhost:3000/query",
+    syncUrl,
+    authToken,
+  });
+  const result = await db.execute("SELECT * FROM keepup");
+  console.log(result);
+};
+
+callDb();
 
 export const createTask = (task: string): TaskType => {
   const uid = new Date().valueOf();
