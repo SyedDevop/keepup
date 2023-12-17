@@ -11,8 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
-
+**/*.env
+client_wal_index
+keepup-db.bd
+keepup-db.db
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
