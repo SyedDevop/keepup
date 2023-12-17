@@ -34,11 +34,11 @@ function KeepUpText({ task }: Props) {
         <p className={task.taskStatus ? "selected" : ""}>{task.task}</p>
         <div className="task-text_action-more">
           <KPMoreButton>
-            <button type="button" className="char-sp">
+            <button type="button" className="btn-select">
               <EditIcon fill="#1abc9c" />
               Edit
             </button>
-            <button type="button" className="char-sp">
+            <button type="button" className="btn-select">
               <DeleteIcon fill="#ff007c" />
               Delete
             </button>

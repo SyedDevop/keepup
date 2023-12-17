@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
-import { createClient } from "@libsql/client";
+import { invoke } from "@tauri-apps/api";
 
 interface keepUpState {
   keepup: TaskType[];
@@ -11,20 +11,17 @@ interface keepUpState {
   toggleTask: (uid: number) => void;
 }
 
-const callDb = async () => {
-  // const url = import.meta.env["DB_URL"];
-  const syncUrl = import.meta.env["VITE_SYNC_URL"];
-  const authToken = import.meta.env["VITE_SYNC_URL"];
-  const db = createClient({
-    url: "http://localhost:3000/query",
-    syncUrl,
-    authToken,
-  });
-  const result = await db.execute("SELECT * FROM keepup");
-  console.log(result);
-};
-
-callDb();
+// const callDb = async () => {
+//   try {
+//     await invoke("sync_keepup");
+//     const result = await invoke("get_all_keepups");
+//     console.log(result);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+//
+// callDb();
 
 export const createTask = (task: string): TaskType => {
   const uid = new Date().valueOf();
@@ -37,6 +34,12 @@ export const createTask = (task: string): TaskType => {
   };
 };
 
+//TODO :[](1) Fetch the data from the database and put it in the store.
+//TODO :[x](2) Add the new task to the database.
+//TODO :[](3) Update the database when the task is toggled.
+//TODO :[](4) Remove the task from the database when the user deletes it.
+//TODO :[](5) Update the database when the user edits the task.
+
 export const useKeepUpStore = create<keepUpState>()(
   immer(
     persist(
@@ -45,6 +48,7 @@ export const useKeepUpStore = create<keepUpState>()(
         add: (task) =>
           set((state) => {
             const newTask = createTask(task);
+            invoke("new_keepups", { task });
             state.keepup.push(newTask);
           }),
         toggleTask: (uid) =>
