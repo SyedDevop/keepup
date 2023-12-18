@@ -1,21 +1,26 @@
 use libsql::{params, Row, Rows};
 use serde::{Deserialize, Serialize};
+use specta::Type;
 use uuid::Uuid;
 
 use super::*;
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Deserialize, Serialize, Debug, Type)]
 pub struct KeepUp {
     pub uid: String,
     pub task: String,
-    pub task_complete: u64,
+    pub task_complete: bool,
 }
 impl KeepUp {
     pub fn from_row(row: &Row) -> Result<Self> {
         Ok(Self {
             uid: row.get(0)?,
             task: row.get(1)?,
-            task_complete: row.get(2)?,
+            task_complete: match row.get(2)? {
+                0 => false,
+                1 => true,
+                _ => false,
+            },
         })
     }
     pub fn from_rows(rows: &mut Rows) -> Result<Vec<Self>> {
@@ -27,12 +32,14 @@ impl KeepUp {
     }
 }
 #[tauri::command]
+#[specta::specta]
 pub async fn sync_keepup() -> Result<()> {
     let (db, _) = get_data_base().await?;
     db.sync().await?;
     Ok(())
 }
 #[tauri::command]
+#[specta::specta]
 pub async fn get_all_keepups() -> Result<Vec<KeepUp>> {
     let (_, conn) = get_data_base().await?;
     let mut results = conn.query("SELECT * FROM keepup", ()).await?;
@@ -40,11 +47,12 @@ pub async fn get_all_keepups() -> Result<Vec<KeepUp>> {
 }
 
 #[tauri::command]
+#[specta::specta]
 pub async fn new_keepups(task: String) -> Result<Option<KeepUp>> {
     println!("new_keepups: {}", task);
     let (db, conn) = get_data_base().await?;
     let uid = Uuid::new_v4().to_string();
-    let params = params![uid, task, 0];
+    let params = params![uid, task, false];
     let mut results = conn
         .query("INSERT INTO keepup VALUES(?, ?, ?)", params)
         .await?;

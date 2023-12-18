@@ -1,5 +1,5 @@
 type TaskType = {
-  uid: number;
+  uid: string;
   task: string;
   taskStatus: boolean;
 };
