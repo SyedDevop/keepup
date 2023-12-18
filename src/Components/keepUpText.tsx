@@ -49,4 +49,5 @@ function KeepUpText({ task }: Props) {
   );
 }
 
-export default React.memo(KeepUpText);
+const MemoKeeoUpText = React.memo(KeepUpText);
+export default MemoKeeoUpText;

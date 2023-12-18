@@ -1,4 +1,4 @@
-type Props = {} & Omit<React.HtmlHTMLAttributes<HTMLButtonElement>, "type">;
+type Props = Omit<React.HtmlHTMLAttributes<HTMLButtonElement>, "type">;
 
 function KPIconButton(props: Props) {
   return (
