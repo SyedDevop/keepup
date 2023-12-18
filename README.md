@@ -5,7 +5,7 @@ This is a note/task taking app which is local first model for saving data in dat
 ## Add .env file for turso sqlite database
 
 #### Manually add the .env file
-Don't forget cd into the ./src-tauri folder.
+Don't forget cd into the ./src-tauri folder before runing the script.
 ```sh
 cd ./src-tauri
 echo "DB_URL=file:localdb" >> .env
