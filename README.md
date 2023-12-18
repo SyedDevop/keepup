@@ -1,18 +1,24 @@
-# Tauri + React + Typescript
+# KeepUp
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+This is a note/task taking app which is local first model for saving data in database and have a remote sync.
 
-## Add .env file for turso sqllite database
+## Add .env file for turso sqlite database
 
-Link for the turso Remote sync-example : [Remote Sync](https://github.com/tursodatabase/embedded-replica-examples/tree/main/remote-sync)
-[Example for tauri,turso note taking app](https://github.com/turso-extended/app-turso-notes)
-
-```shell
-echo "VITE_DB_URL=file:localdb" >> .env
-echo "VITE_SYNC_URL=$(turso db show --url sync-example)" >> .env
-echo "VITE_AUTH_TOKEN=$(turso db tokens create sync-example)" >> .env
+#### Manually add the .env file
+Don't forget cd into the ./src-tauri folder.
+```sh
+cd ./src-tauri
+echo "DB_URL=file:localdb" >> .env
+echo "TAURI_SYNC_URL=$(turso db show --url keepup-db)" >> .env
+echo "TAURI_AUTH_TOKEN=$(turso db tokens create keepup-db)" >> .env
+```
+#### Or run the setup-env command
+```sh
+./setup-env.sh
 ```
 
-## Recommended IDE Setup
+# Link from plugin and references
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- [x] [Remote Sync](https://github.com/tursodatabase/embedded-replica-examples/tree/main/remote-sync)  [Example for tauri,turso note taking app](https://github.com/turso-extended/app-turso-notes) Link for the turso Remote sync-example
+  
+- [] [Specta](https://github.com/oscartbeaumont/tauri-specta) A rust library for provides a system for type introspection and a set of language exporters which allow you to export your Rust types to other languages.
