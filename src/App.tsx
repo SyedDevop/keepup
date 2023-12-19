@@ -6,7 +6,7 @@ import KeepUpInput from "./Components/keepUpInput";
 import "./App.css";
 import "./Components/Ui/button.css";
 import KeepUpList from "./Components/KeepUpList";
-import { getAllKeepups } from "./bindings";
+import { getAllKeepups, syncKeepup } from "./bindings";
 import { useKeepUpStore } from "@src/store/useKeepup";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
   const getData = async () => {
     try {
       console.log("GETTING DATA");
+      await syncKeepup();
       const data = await getAllKeepups();
       const taskData = data.map((t) => {
         const data = {

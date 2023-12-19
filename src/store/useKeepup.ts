@@ -4,7 +4,7 @@ import * as tauriApi from "@src/bindings";
 
 interface keepUpState {
   keepup: TaskType[];
-  delete: (uid: number) => void;
+  delete: (uid: string) => void;
   add: (task: string) => void;
   edit: (uid: string, task: string) => void;
   toggleTask: (uid: string) => void;
