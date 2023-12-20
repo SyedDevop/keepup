@@ -24,5 +24,9 @@ echo "TAURI_AUTH_TOKEN=$(turso db tokens create keepup-db)" >> .env
 
 ## Link from plugin and references
 
-- [x] [Remote Sync](https://github.com/tursodatabase/embedded-replica-examples/tree/main/remote-sync) [Example for tauri,turso note taking app](https://github.com/turso-extended/app-turso-notes) Link for the turso Remote sync-example
-- [] [Specta](https://github.com/oscartbeaumont/tauri-specta) A rust library for provides a system for type introspection and a set of language exporters which allow you to export your Rust types to other languages.
+- [x] [Remote Sync](https://github.com/tursodatabase/embedded-replica-examples/tree/main/remote-sync)
+      , [Example for tauri,turso note taking app](https://github.com/turso-extended/app-turso-notes)
+      Link for the turso Remote sync-example
+- [] [Specta](https://github.com/oscartbeaumont/tauri-specta) A rust library
+  for provides a system for type introspection and a set of language exporters
+  which allow you to export your Rust types to other languages.
