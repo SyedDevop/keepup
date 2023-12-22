@@ -13,9 +13,18 @@ type Props = {
 };
 
 function KeepUpText({ task }: Props) {
-  const toggleTask = useKeepUpStore((state) => state.toggleTask);
+  const [toggleTask, deleteTask] = useKeepUpStore((s) => [
+    s.toggleTask,
+    s.delete,
+  ]);
   const toggleSelected = () => {
-    toggleTask(task.uid);
+    toggleTask(task.uid, task.taskStatus);
+  };
+
+  const deleteSelected = () => {
+    console.log("CAlled Delete");
+
+    deleteTask(task.uid);
   };
 
   return (
@@ -38,7 +47,11 @@ function KeepUpText({ task }: Props) {
               <EditIcon fill="#1abc9c" />
               Edit
             </button>
-            <button type="button" className="btn-select">
+            <button
+              type="button"
+              className="btn-select"
+              onClick={deleteSelected}
+            >
               <DeleteIcon fill="#ff007c" />
               Delete
             </button>

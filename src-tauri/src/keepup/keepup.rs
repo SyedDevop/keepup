@@ -9,14 +9,14 @@ use super::*;
 pub struct KeepUp {
     pub uid: String,
     pub task: String,
-    pub task_complete: bool,
+    pub task_state: bool,
 }
 impl KeepUp {
     pub fn from_row(row: &Row) -> Result<Self> {
         Ok(Self {
             uid: row.get(0)?,
             task: row.get(1)?,
-            task_complete: match row.get(2)? {
+            task_state: match row.get(2)? {
                 0 => false,
                 1 => true,
                 _ => false,
@@ -62,4 +62,38 @@ pub async fn new_keepups(task: String) -> Result<Option<KeepUp>> {
         None => None,
     };
     Ok(ret)
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn toggle_keepups(uid: String, state: bool) -> Result<()> {
+    let (db, conn) = get_data_base().await?;
+    let params = params![state, uid];
+    conn.execute("UPDATE keepup SET task_state = ? WHERE uid = ?", params)
+        .await?;
+    db.sync().await?;
+
+    Ok(())
+}
+#[tauri::command]
+#[specta::specta]
+pub async fn update_keepups(uid: String, task: String) -> Result<()> {
+    let (db, conn) = get_data_base().await?;
+    let params = params![task, uid];
+    conn.execute("UPDATE keepup SET task = ? WHERE uid = ?", params)
+        .await?;
+    db.sync().await?;
+
+    Ok(())
+}
+#[tauri::command]
+#[specta::specta]
+pub async fn delete_keepups(uid: String) -> Result<()> {
+    let (db, conn) = get_data_base().await?;
+    let params = params![uid];
+    conn.execute("DELETE FROM keepup WHERE uid = ?", params)
+        .await?;
+    db.sync().await?;
+
+    Ok(())
 }

@@ -5,14 +5,23 @@ use dotenv::dotenv;
 use specta::collect_types;
 use tauri_specta::ts;
 
-use keepup::{get_all_keepups, new_keepups, sync_keepup};
+use keepup::{
+    delete_keepups, get_all_keepups, new_keepups, sync_keepup, toggle_keepups, update_keepups,
+};
 mod keepup;
 
 fn main() {
     let _ = dotenv();
     #[cfg(debug_assertions)]
     ts::export(
-        collect_types![get_all_keepups, new_keepups, sync_keepup],
+        collect_types![
+            get_all_keepups,
+            new_keepups,
+            sync_keepup,
+            toggle_keepups,
+            update_keepups,
+            delete_keepups
+        ],
         "../src/bindings.ts",
     )
     .unwrap();
@@ -20,7 +29,10 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             get_all_keepups,
             new_keepups,
-            sync_keepup
+            sync_keepup,
+            toggle_keepups,
+            update_keepups,
+            delete_keepups
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -6,32 +6,12 @@ import KeepUpInput from "./Components/keepUpInput";
 import "./App.css";
 import "./Components/Ui/button.css";
 import KeepUpList from "./Components/KeepUpList";
-import { getAllKeepups, syncKeepup } from "./bindings";
 import { useKeepUpStore } from "@src/store/useKeepup";
 
 function App() {
-  const add = useKeepUpStore((t) => t.setAllKeepup);
-  const getData = async () => {
-    try {
-      console.log("GETTING DATA");
-      await syncKeepup();
-      const data = await getAllKeepups();
-      const taskData = data.map((t) => {
-        const data = {
-          uid: t.uid,
-          taskStatus: t["task_complete"],
-          task: t.task,
-        } as TaskType;
-        return data;
-      });
-      add(taskData);
-      console.log("DATA FETCHED", data);
-    } catch (error) {
-      console.log("ERROR", error);
-    }
-  };
+  const fetchKeepup = useKeepUpStore((t) => t.fetchKeepup);
   useEffect(() => {
-    getData();
+    fetchKeepup();
   }, []);
   return (
     <div className=" ">

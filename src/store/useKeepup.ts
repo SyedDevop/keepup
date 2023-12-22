@@ -1,45 +1,21 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+
 import * as tauriApi from "@src/bindings";
+import { castToTaskList, createTask } from "./storeUtils";
 
 interface keepUpState {
   keepup: TaskType[];
   delete: (uid: string) => void;
   add: (task: string) => void;
   edit: (uid: string, task: string) => void;
-  toggleTask: (uid: string) => void;
+  toggleTask: (uid: string, state: boolean) => void;
   setAllKeepup: (keepup: TaskType[]) => void;
+  fetchKeepup: () => void;
 }
 
-// const callDb = async () => {
-//   try {
-//     await invoke("sync_keepup");
-//     const result = await invoke("get_all_keepups");
-//     console.log(result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-//
-// callDb();
-
-export const createTask = (task: string): TaskType => {
-  const uid = `${new Date().valueOf()}`;
-  const taskStatus = false;
-
-  return {
-    uid,
-    task,
-    taskStatus,
-  };
-};
-
-//TODO :[x](1) Fetch the data from the database and put it in the store.
-//      [](1.5) Clean up the fetching logic in App.tsx.
-//TODO :[x](2) Add the new task to the database.
-//TODO :[](3) Update the database when the task is toggled.
-//TODO :[](4) Remove the task from the database when the user deletes it.
-//TODO :[](5) Update the database when the user edits the task.
+//BUG : Fix the syncKeepup fun when called in offline mode.
+//It dose not return any thing.
 
 export const useKeepUpStore = create<keepUpState>()(
   immer((set) => ({
@@ -50,22 +26,65 @@ export const useKeepUpStore = create<keepUpState>()(
         tauriApi.newKeepups(task);
         state.keepup.push(newTask);
       }),
+
+    fetchKeepup: async () => {
+      try {
+        await tauriApi.syncKeepup();
+      } catch (error) {
+        console.log("Synck Error", error);
+      }
+      try {
+        const result = await tauriApi.getAllKeepups();
+        const keepup = castToTaskList(result);
+        set({ keepup });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     setAllKeepup: (keepup) => set({ keepup }),
-    toggleTask: (uid) =>
-      set((state) => {
-        const toggledTask = state.keepup.find((task) => task.uid === uid);
+
+    toggleTask: async (uid, state) => {
+      set((s) => {
+        const toggledTask = s.keepup.find((task) => task.uid === uid);
         if (toggledTask) {
-          toggledTask.taskStatus = !toggledTask.taskStatus;
+          toggledTask.taskStatus = !state;
         }
-      }),
-    delete: (_uid) => set((state) => ({ keepup: state.keepup })),
-    edit: (uid, newTask) =>
+      });
+      try {
+        await tauriApi.toggleKeepups(uid, !state);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    delete: async (uid) => {
+      set((state) => {
+        const index = state.keepup.findIndex((task) => task.uid === uid);
+        if (index > -1) {
+          state.keepup.splice(index, 1);
+        }
+      });
+      try {
+        await tauriApi.deleteKeepups(uid);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    edit: async (uid, newTask) => {
       set((state) => {
         const taskToEdit = state.keepup.find((task) => task.uid === uid);
         if (taskToEdit) {
           taskToEdit.task = newTask;
         }
-      }),
+      });
+      try {
+        await tauriApi.updateKeepups(uid, newTask);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   })),
 );
 

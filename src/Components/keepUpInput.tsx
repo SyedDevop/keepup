@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./keepUpInput.css";
-import { useKeepUpStore, createTask } from "@src/store/useKeepup";
+import { useKeepUpStore, createTask } from "@src/store";
 
 type Props = {
   onSubmit?: (task: TaskType) => void;
